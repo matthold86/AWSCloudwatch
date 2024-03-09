@@ -3,6 +3,16 @@
 ### Summary:
 This repository contains 3 lambda files that make up an image processing pipeline built in AWS. The pipeline allows a user to upload an image to an S3 bucket via a web application interface and retrieve that image to be displayed on the web application. Although this is a simple task, it is the basic structure for completely automated image upload, storage, and retrieval. The image object is stored in an S3 database and the S3ObjectKey is stored in a DynamoDB database for quick access querying from the web application.
 
+
+### AWS Pipeline Integration with CloudWatch
+In my GitHub repository, I've leveraged AWS CloudWatch to enhance the efficiency and reliability of the image processing pipeline. CloudWatch serves as a vital monitoring and management tool throughout this process, providing real-time insights into the performance and health of my AWS resources.
+
+Through the integration of CloudWatch, I'm able to monitor the execution of Lambda functions responsible for controlling the entire pipeline. This includes tracking metrics such as execution duration, error rates, and resource utilization, allowing me to detect and troubleshoot any issues promptly. Additionally, CloudWatch alarms are configured to automatically alert me to any anomalies or unexpected behavior, ensuring proactive monitoring and timely response to potential issues.
+
+Moreover, CloudWatch logs capture detailed information about each step of the pipeline, facilitating thorough analysis and troubleshooting when needed. By centralizing logs and metrics within CloudWatch, I can gain a comprehensive understanding of the pipeline's performance and effectively optimize its operation over time.
+
+Overall, CloudWatch plays a critical role in ensuring the reliability and efficiency of my image upload pipeline. Watch the demonstration video below to see how the pipeline works.
+
 ### Pipeline Description:
 The pipeline starts on a static website (I used my personal website as a demo). When a user uploads an image via the "upload" interface. An http request is sent to the first lambda function `s3bucket-presignkey`. The lambda function requests a presigned upload key from the S3 bucket using an authorized IAM role. The S3 bucket returns a presigned key and the lambda function passes the key back to the static website in the http response. A javascript event handler is then able to use the presigned key to upload the image directly to the S3 bucket. This method was chosen because it utilizes AWS user authentication roles and applys the principle of least privaledge to each entity in the pipeline. 
 
